@@ -1,5 +1,5 @@
 import { getShortCodeRepository, ShortCode } from "../db/shortcode.entity";
-import { v4  as uuid} from 'uuid'
+import { v4  as uuid } from 'uuid'
 import generateRandom from "../services/generateRandom";
 
 let tries = 0

@@ -12,16 +12,5 @@ export const connection = async(): Promise<Connection> =>{
     entities: [ShortCode],
     synchronize : true
     }
-    
     return await createConnection(options)
 }
-// long url -> short url
-// short url -> long url (redirect)
-
-// long url -> check length (validation) -> controller(randomcreation of shortcode)-> !exist => set of alphabets and numbers  -> database -> 
-                                                // id - toint(shortcode) - PK
-                                                // shortcode 
-                                                // longurl 
-// controllers
-// create -> details -> 
-// details 
