@@ -1,9 +1,9 @@
 import app from "./app";
-import { connection } from "./db/connect";
+import { connect } from "./db/connect";
 
 (async function start(){
     
-    await connection()
+    await connect()
     const PORT = 8081
     app.listen(PORT, ()=>{
         console.log(`Listening on https://localhost:${PORT}`)
