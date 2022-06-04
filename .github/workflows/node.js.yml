@@ -33,4 +33,4 @@ jobs:
       run: npm run build
       
     - name: Run Test
-      run: npm test
+      run: npm run test
