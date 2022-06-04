@@ -1,5 +1,5 @@
 import { connect } from '../src/db/connect'
-import { createRandomCode } from '../src/controllers/shortcode.controller'
+import { createRandomCode } from '../src/controllers/shortCode.controller'
 import { Connection } from 'typeorm'
 
 describe('test for shortcode controller', () => {
