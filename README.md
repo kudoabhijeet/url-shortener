@@ -1,4 +1,4 @@
-# URL Shortner
+# URL Shortener
 A short url application is used to created short links, aliases against a long url. 
 They are generally used to share long urls over text messages and tweets. 
 
@@ -9,7 +9,7 @@ They are generally used to share long urls over text messages and tweets.
 
 ## System Design (Requirements)
 
-1. Service should be always available.ks
+1. Service should be always available.
 2. Short to Long URL should be fast. 
 3. Service should be scalable.
 
