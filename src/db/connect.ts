@@ -1,7 +1,9 @@
 import { Connection, ConnectionOptions, createConnection } from "typeorm";
+
 import { ShortCode } from "./shortcode.entity";
 
-export const connect = async(): Promise<Connection> =>{
+
+const connect = async(): Promise<Connection> =>{
     const options : ConnectionOptions = {
     type: 'postgres',
     host: 'localhost',
@@ -36,4 +38,7 @@ export const connect = async(): Promise<Connection> =>{
     // }
 
     return await createConnection(options)
+}
+export {
+    connect,
 }

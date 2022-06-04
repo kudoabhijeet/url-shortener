@@ -1,10 +1,10 @@
 import { getShortCodeRepository, ShortCode } from "../db/shortcode.entity";
 import { v4  as uuid } from 'uuid'
-import generateRandom from "../services/generateRandom";
+import { nanoid } from 'nanoid'
 
 let tries = 0
 export async function createRandomCode(longurl : string) : Promise<ShortCode> {
-    const randomCode = generateRandom()
+    const randomCode = nanoid(5) 
     const newCode = new ShortCode()
     
     if(await getShortCodeDetails(randomCode)){

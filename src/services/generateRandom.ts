@@ -1,4 +1,5 @@
+import { nanoid } from 'nanoid'
+
 export default function generateRandom() {
-    const randomShortCode = Math.random().toString(36).substring(2,7);
-    return randomShortCode;
+    return nanoid(5)
 }
