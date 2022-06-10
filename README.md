@@ -1,4 +1,7 @@
 # URL Shortener
+[![Node.JS CI Status](https://github.com/kudoabhijeet/url-shortener/actions/workflows/node.js.yml/badge.svg)](https://github.com/kudoabhijeet/url-shortener/actions/workflows/node.js.yml)
+
+
 A short url application is used to created short links, aliases against a long url. 
 They are generally used to share long urls over text messages and tweets. 
 
