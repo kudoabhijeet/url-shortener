@@ -4,7 +4,7 @@ import { ShortCode } from "./shortcode.entity";
 
 
 const connect = async(): Promise<Connection> =>{
-    const options : ConnectionOptions = {
+    let options : ConnectionOptions = {
     type: 'postgres',
     host: 'localhost',
     port: 5432,
@@ -15,16 +15,16 @@ const connect = async(): Promise<Connection> =>{
     synchronize : true
     }
 
-    // if (process.env.NODE_ENV === 'test') {
-    //     options = {
-    //       type: 'sqlite',
-    //       database: ':memory:',
-    //       logging: 'all',
-    //       logger: 'advanced-console',
-    //       entities: [ShortCode],
-    //       synchronize: true,
-    //     }
-    // }
+    if (process.env.NODE_ENV === 'test') {
+        options = {
+          type: 'sqlite',
+          database: ':memory:',
+          logging: 'all',
+          logger: 'advanced-console',
+          entities: [ShortCode],
+          synchronize: true,
+        }
+    }
     
     // if (process.env.NODE_ENV === 'production') {
     //     options = {
