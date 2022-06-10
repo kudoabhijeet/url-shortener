@@ -3,7 +3,7 @@ import { createRandomCode } from '../src/controllers/shortCode.controller'
 import { Connection } from 'typeorm'
 
 describe('test for shortcode controller', () => {
-    let connection : Connection
+  let connection : Connection
   beforeAll(async() => {
     connection = await connect()
   })
