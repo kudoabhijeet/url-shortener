@@ -1,12 +1,7 @@
-import { connect } from '../src/db/connect'
 import { createRandomCode } from '../src/controllers/shortCode.controller'
-import { Connection } from 'typeorm'
 
 describe('test for shortcode controller', () => {
-  let connection : Connection
-  beforeAll(async() => {
-    connection = await connect()
-  })
+  
 
   it('createRandomShortCode works', async() => {
     const shortCode = await createRandomCode('https://google.com/search?q=javascript')
@@ -15,6 +10,6 @@ describe('test for shortcode controller', () => {
   })
 
   afterAll(async() => {
-    connection.close()
+    console.log('TEST DONE')
   })
 })
