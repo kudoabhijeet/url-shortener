@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "clean": "rimraf dist",
     "test:watch": "npm run test -- --watch",
-    "test": "jest"
+    "test": "jest",
+    "prisma-migrate-dev": "docker exec url-shortener npx prisma migrate dev"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"

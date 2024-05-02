@@ -1,7 +1,8 @@
-version: '3.8'
 services:
   api:
-    image: url-shortener
+    image: api
+    depends_on:
+      - db
     ports:
       - ${PORT}:${PORT}
 
@@ -12,5 +13,4 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - '5433:5432'
-      
+      - "5433:5432"
