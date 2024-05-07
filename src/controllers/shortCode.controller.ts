@@ -26,7 +26,6 @@ export async function createRandomCode(longurl : string) {
 }
 
 export async function getShortCodeDetails(short : string) {
-    // const presentEntity = await getShortCodeRepository().findOne(shortcode)
     const presentEntity = await prisma.urls.findFirst({ where: { shortcode: short}})
     return presentEntity
 }
