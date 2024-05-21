@@ -7,6 +7,6 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use('/api', api )
+app.use('/api', api )  //https://localhost:8080/api/
 
 export default app

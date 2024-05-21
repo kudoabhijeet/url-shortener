@@ -9,6 +9,8 @@ describe('test for shortcode controller', () => {
     expect(shortCode.longUrl).toEqual('https://google.com/search?q=javascript')
   })
 
+
+  
   afterAll(async() => {
     console.log('TEST DONE')
   })

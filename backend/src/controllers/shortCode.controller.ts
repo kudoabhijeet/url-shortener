@@ -1,12 +1,12 @@
 // import { getShortCodeRepository, ShortCode } from "../db/shortcode.entity";
 import  {PrismaClient} from "@prisma/client"
-import { nanoid } from 'nanoid'
+import generateRandom from "../services/generateRandom"
 
 const prisma = new PrismaClient()
 
 let tries = 0
 export async function createRandomCode(longurl : string) {
-    const randomCode = nanoid(5) 
+    const randomCode = generateRandom() 
     if(await getShortCodeDetails(randomCode)){
         if(tries < 5){
             tries++;
