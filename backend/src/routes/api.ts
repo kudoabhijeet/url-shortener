@@ -8,7 +8,7 @@ const redis_client = createClient({ url: process.env.REDIS_URL })
     .on('error', err => console.log('Redis Client Error', err))
     .connect();
 
-route.get('/:code', checkCache, async (req, res) => {
+route.get('/:code', async (req, res) => {
     const shortcode = req.params.code
 
     const presentShortCode = await getShortCodeDetails(shortcode)
@@ -17,8 +17,9 @@ route.get('/:code', checkCache, async (req, res) => {
             message: " Not Found"
         })
     }
+    console.log(presentShortCode);
 
-    (await redis_client).SET(shortcode, presentShortCode.longUrl);
+    // (await redis_client).SET(shortcode, presentShortCode.longUrl);
 
     return res.json({
         "longURL": presentShortCode.longUrl
@@ -41,5 +42,5 @@ route.post('/create', async (req, res) => {
 export default route
 
 // repository -
-                // 1. url shortener
-                // 2. frontend 
+// 1. url shortener
+// 2. frontend 

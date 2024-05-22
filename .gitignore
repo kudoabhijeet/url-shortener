@@ -104,6 +104,6 @@ dist
 .tern-port
 
 dump.rdb 
-src/prisma/migrations
+backend/src/prisma/migrations/*
 package-lock.json
-yarn-lock.json
+yarn-lock.json.DS_Store
