@@ -106,4 +106,5 @@ dist
 dump.rdb 
 backend/src/prisma/migrations/*
 package-lock.json
-yarn-lock.json.DS_Store
+yarn-lock.json
+.DS_Store

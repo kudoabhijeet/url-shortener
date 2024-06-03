@@ -8,6 +8,10 @@ RUN npm i
 COPY . .
 
 EXPOSE 8080
+RUN chmod +x run.sh 
+RUN chmod +x wait-for-it.sh 
 
-RUN npm run build
-CMD ["npm", "start"]
+RUN ./scripts/run.sh
+
+# RUN npm run build
+# CMD ["npm", "start"]
