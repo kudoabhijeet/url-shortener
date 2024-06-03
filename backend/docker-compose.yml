@@ -1,0 +1,25 @@
+services:
+  # api:
+  #   image: api
+  #   depends_on:
+  #     - db
+  #     - cache
+  #   ports:
+  #     - ${PORT}:${PORT}
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+
+  cache:
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "6379:6379"
