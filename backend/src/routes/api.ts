@@ -1,46 +1,67 @@
-import Router from 'express'
-import { createClient } from 'redis'
-import { createRandomCode, getShortCodeDetails } from '../controllers/shortCode.controller'
-import checkCache from '../middleware/caching.middleware'
-const route = Router()
+import { Router } from "express";
+import Redis from "ioredis";
+import {
+  createRandomCode,
+  getShortCodeDetails,
+} from "../controllers/shortCode.controller.js";
+import checkCache from "../middleware/caching.middleware";
 
-const redis_client = createClient({ url: process.env.REDIS_URL })
-    .on('error', err => console.log('Redis Client Error', err))
-    .connect();
+const route = Router();
+const redis = new Redis(process.env.REDIS_URL, {
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
-route.get('/:code', async (req, res) => {
-    const shortcode = req.params.code
+redis.on("error", (err) => console.error("❌ Redis Error:", err));
 
-    const presentShortCode = await getShortCodeDetails(shortcode)
-    if (!presentShortCode) {
-        return res.status(404).json({
-            message: " Not Found"
-        })
+/**
+ * @route GET /:code
+ * @desc Retrieve the long URL using the short code (with caching)
+ */
+route.get("/:code", checkCache, async (req, res) => {
+  try {
+    const shortcode = req.params.code;
+
+    if (!shortcode) {
+      return res.status(400).json({ message: "Short code is required" });
     }
-    console.log(presentShortCode);
 
-    // (await redis_client).SET(shortcode, presentShortCode.longUrl);
+    const presentShortCode = await getShortCodeDetails(shortcode);
+    if (!presentShortCode) {
+      return res.status(404).json({ message: "Not Found" });
+    }
 
-    return res.json({
-        "longURL": presentShortCode.longUrl
-    })
-    // return res.redirect(presentShortCode.longUrl)
+    console.log(`🔗 Retrieved URL from DB: ${presentShortCode.longUrl}`);
 
-})
+    await redis.set(shortcode, presentShortCode.longUrl, "EX", 3600);
 
-route.post('/create', async (req, res) => {
-    const longurl = req.body.url
+    return res.status(200).json({ longURL: presentShortCode.longUrl });
+  } catch (error) {
+    console.error("❌ Error in GET /:code:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
-    const createdShortCode = await createRandomCode(longurl)
+/**
+ * @route POST /create
+ * @desc Create a short code for a long URL
+ */
+route.post("/create", async (req, res) => {
+  try {
+    const longurl = req.body.url;
 
-    return res.status(200).json({
-        data: createdShortCode
-    })
-})
+    if (!longurl) {
+      return res.status(400).json({ message: "URL is required" });
+    }
 
+    const createdShortCode = await createRandomCode(longurl);
 
-export default route
+    return res.status(200).json({ data: createdShortCode });
+  } catch (error) {
+    console.error("❌ Error in POST /create:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
-// repository -
-// 1. url shortener
-// 2. frontend 
+export default route;
