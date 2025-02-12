@@ -36,7 +36,7 @@ route.get("/:code", checkCache, async (req, res) => {
 
     await redis.set(shortcode, presentShortCode.longUrl, "EX", 3600);
 
-    return res.status(200).json({ longURL: presentShortCode.longUrl });
+    // return res.status(200).json({ longURL: presentShortCode.longUrl });
   } catch (error) {
     console.error("❌ Error in GET /:code:", error);
     return res.status(500).json({ message: "Internal Server Error" });

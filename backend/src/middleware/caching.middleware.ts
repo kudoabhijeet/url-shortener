@@ -19,8 +19,9 @@ export default async function checkCache(req, res, next) {
     const cachedUrl = await redis.get(shortcode);
 
     if (cachedUrl) {
-      console.log(`✅ Cache hit for: ${shortcode}`);
-      return res.status(200).json({ longURL: cachedUrl });
+      console.log(`✅ Cache hit for: ${shortcode}, redirecting...`);
+      return res.redirect(301, cachedUrl);
+      // return res.status(200).json({ longURL: cachedUrl });
     } else {
       console.log(`❌ Cache miss for: ${shortcode}`);
       next();
