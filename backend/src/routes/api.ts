@@ -44,10 +44,10 @@ route.get("/:code", checkCache, async (req, res) => {
 });
 
 /**
- * @route POST /create
+ * @route POST /api/create
  * @desc Create a short code for a long URL
  */
-route.post("/create", async (req, res) => {
+route.post("/api/create", async (req, res) => {
   try {
     const longurl = req.body.url;
 
