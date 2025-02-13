@@ -16,7 +16,7 @@ export function Hero() {
   ): Promise<void> {
     e.preventDefault();
     try {
-      const response = await fetch("https://ku2.me/api/create", {
+      const response = await fetch("http://ku2.me/api/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,11 +81,7 @@ export function Hero() {
         <div className="space-y-2">
           <h2 className="text-md font-medium">Copy your link</h2>
           <div className="flex items-center space-x-2">
-            <Input
-              className="flex-1 bg-gray-100 dark:bg-gray-800"
-              readOnly
-              value={shortUrl}
-            />
+            <Input className="flex-1 bg-gray-100" readOnly value={shortUrl} />
             <Button
               size="sm"
               variant="outline"
