@@ -8,8 +8,8 @@ RUN npm i
 COPY . .
 
 EXPOSE 8080
-RUN chmod +x run.sh 
-RUN chmod +x wait-for-it.sh 
+RUN chmod +x ./scripts/run.sh 
+RUN chmod +x ./scripts/wait-for-it.sh 
 
 RUN ./scripts/run.sh
 
