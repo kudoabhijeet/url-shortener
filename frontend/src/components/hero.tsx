@@ -16,7 +16,7 @@ export function Hero() {
   ): Promise<void> {
     e.preventDefault();
     try {
-      const response = await fetch("https://ku2.me/api/create", {
+      const response = await fetch("http://ku2.me/api/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
