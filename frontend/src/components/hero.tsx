@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileCheck, Clipboard } from "lucide-react";
 import Footer from "./footer";
+import axios from "axios";
 
 export function Hero() {
   const [longUrl, setLongUrl] = useState("");
@@ -16,20 +17,11 @@ export function Hero() {
   ): Promise<void> {
     e.preventDefault();
     try {
-      const response = await fetch("https://ku2.me/api/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: longUrl }),
+      const response = await axios.post("https://app.ku2.me/api/create", {
+        url: longUrl,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to shorten URL");
-      }
-
-      const data = await response.json();
-      const shortcode = data.data.shortcode;
+      const shortcode = response.data.data.shortcode;
 
       const shortenedUrl = `ku2.me/${shortcode}`;
       console.log(shortenedUrl);
