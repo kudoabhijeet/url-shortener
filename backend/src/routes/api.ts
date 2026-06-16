@@ -7,10 +7,9 @@ import {
 import checkCache from "../middleware/caching.middleware";
 
 const route = Router();
-const redis = new Redis(process.env.REDIS_URL, {
-  tls: {
-    rejectUnauthorized: false,
-  },
+const redis = new Redis({
+  host: "127.0.0.1",
+  port: 6379,
 });
 
 redis.on("error", (err) => console.error("❌ Redis Error:", err));
@@ -32,11 +31,14 @@ route.get("/:code", checkCache, async (req, res) => {
       return res.status(404).json({ message: "Not Found" });
     }
 
-    console.log(`🔗 Retrieved URL from DB: ${presentShortCode.longUrl}`);
+    console.log(
+      `🔗 Retrieved URL from DB: ${presentShortCode.longUrl}, redirecting...`,
+    );
 
     await redis.set(shortcode, presentShortCode.longUrl, "EX", 3600);
 
     // return res.status(200).json({ longURL: presentShortCode.longUrl });
+    return res.redirect(301, presentShortCode.longUrl);
   } catch (error) {
     console.error("❌ Error in GET /:code:", error);
     return res.status(500).json({ message: "Internal Server Error" });
