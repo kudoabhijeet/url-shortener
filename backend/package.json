@@ -5,6 +5,7 @@
   "main": "dist/run.js",
   "scripts": {
     "build": "tsc",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/run.ts",
     "prestart:dev": "npm run build",
     "start": "cross-env NODE_ENV=production npx prisma generate && node dist/run.js",
     "start:dev": "cross-env NODE_ENV=development npx prisma generate && node dist/run.js",
@@ -12,6 +13,8 @@
     "clean": "rimraf dist",
     "test:watch": "npm run test -- --watch",
     "test": "jest",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "prisma-migrate-dev": "docker exec url-shortener npx prisma migrate dev"
   },
   "prisma": {
@@ -39,12 +42,14 @@
     "prisma": "^5.13.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.3",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.6.2"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.17.3",
     "ioredis": "^5.5.0",
     "nanoid": "^3.3.4",

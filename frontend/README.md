@@ -18,6 +18,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Environment variables
+
+Config is read in [src/lib/config.ts](src/lib/config.ts) from two public vars:
+
+| Variable                  | Purpose                                          |
+| ------------------------- | ------------------------------------------------ |
+| `NEXT_PUBLIC_BACKEND_URL` | Base URL of the backend API (create + resolve).  |
+| `NEXT_PUBLIC_SHORT_DOMAIN`| Domain shown in generated short links (no proto).|
+
+- Local dev values live in `.env.development` and point at the local backend
+  (`http://localhost:3001`). Start the backend first (see `../backend/README.md`).
+- `.env.example` documents the production values.
+- For per-machine overrides, create `.env.local` (git-ignored).
+
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
@@ -31,6 +45,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The frontend auto-deploys to Vercel on every push to `main` (Vercel's GitHub
+integration handles this — no workflow needed in this repo).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+One-time setup in the Vercel project:
+
+1. **Root Directory** must be set to `frontend` (this app lives in a subdirectory).
+2. Set the **Production** environment variables in the Vercel dashboard:
+   - `NEXT_PUBLIC_BACKEND_URL=https://app.ku2.me`
+   - `NEXT_PUBLIC_SHORT_DOMAIN=ku2.me`
+
+These are not committed (only `.env.example` / `.env.development` are) so they must
+be configured in Vercel for production builds.
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

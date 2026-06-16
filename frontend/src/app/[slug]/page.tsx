@@ -1,5 +1,6 @@
 import { redirect, notFound } from "next/navigation";
 import axios from "axios";
+import { BACKEND_URL } from "@/lib/config";
 
 interface SlugPageProps {
   params: Promise<{ slug: string }>;
@@ -10,7 +11,7 @@ export default async function SlugPage({ params }: SlugPageProps) {
 
   try {
     // Call the backend API without following redirects to extract the long URL
-    const response = await axios.get(`https://app.ku2.me/${slug}`, {
+    const response = await axios.get(`${BACKEND_URL}/${slug}`, {
       maxRedirects: 0, // Don't follow the 301 redirect — capture it instead
       validateStatus: (status) => status >= 200 && status < 400, // Treat 3xx as valid responses
     });

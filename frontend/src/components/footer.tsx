@@ -1,34 +1,30 @@
 import { Github, Linkedin, Globe } from "lucide-react";
 
+const links = [
+  { href: "https://github.com/kudoabhijeet", label: "GitHub", Icon: Github },
+  {
+    href: "https://linkedin.com/in/kudoabhijeet",
+    label: "LinkedIn",
+    Icon: Linkedin,
+  },
+  { href: "https://kudoabhijeet.com", label: "Website", Icon: Globe },
+];
+
 const Footer = () => {
   return (
-    <div className="w-full py-4 mt-10 border-t">
-      <div className="container flex justify-center items-center gap-4">
+    <div className="mt-8 flex items-center justify-center gap-1 border-t border-slate-100 pt-5">
+      {links.map(({ href, label, Icon }) => (
         <a
-          href="https://github.com/kudoabhijeet"
+          key={href}
+          href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:opacity-75 transition-opacity"
+          aria-label={label}
+          className="rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-brand-600"
         >
-          <Github size={24} />
+          <Icon size={20} />
         </a>
-        <a
-          href="https://linkedin.com/in/kudoabhijeet"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:opacity-75 transition-opacity"
-        >
-          <Linkedin size={24} />
-        </a>
-        <a
-          href="https://kudoabhijeet.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:opacity-75 transition-opacity"
-        >
-          <Globe size={24} />
-        </a>
-      </div>
+      ))}
     </div>
   );
 };

@@ -1,17 +1,4 @@
-import Redis from "ioredis";
-
-// const redis = new Redis(process.env.REDIS_URL, {
-//   tls: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
-const redis = new Redis({
-  host: "127.0.0.1",
-  port: 6379,
-});
-
-redis.on("error", (err) => console.error("❌ Redis Error:", err));
+import redis from "../services/redis";
 
 export default async function checkCache(req, res, next) {
   try {
@@ -25,8 +12,7 @@ export default async function checkCache(req, res, next) {
 
     if (cachedUrl) {
       console.log(`✅ Cache hit for: ${shortcode}, redirecting...`);
-      return res.redirect(301, cachedUrl);
-      // return res.status(200).json({ longURL: cachedUrl });
+      return res.redirect(302, cachedUrl);
     } else {
       console.log(`❌ Cache miss for: ${shortcode}`);
       next();

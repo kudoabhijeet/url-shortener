@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const figtree = Figtree({
+  subsets: ["latin"],
+  variable: "--font-figtree",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "URL Shortener App",
-  description: "URL Shortener App",
+  title: "ku2.me — Shorten your links",
+  description:
+    "A fast, simple URL shortener. Paste a long link and get a clean short one in seconds.",
 };
 
 export default function RootLayout({
@@ -15,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={figtree.variable}>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }
