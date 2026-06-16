@@ -31,8 +31,13 @@ cp .env.example .env        # defaults already match the docker-compose stack
 docker compose up -d        # Postgres on :5432, Redis on :6379
 npm install
 npm run db:migrate          # apply Prisma migrations to the local DB
-npm run start:dev           # API on http://localhost:3001
+npm run dev                 # API on http://localhost:3001 (auto-restarts on save)
 ```
+
+`npm run dev` uses `ts-node-dev` and reloads on every file change. If you'd rather
+run the compiled build once (no watch), use `npm run start:dev` instead. Don't run
+both at once — they both bind `:3001`. If a stale process is holding the port:
+`lsof -ti :3001 | xargs kill -9`.
 
 Env is loaded via `dotenv` (see [src/run.ts](src/run.ts)); Prisma also reads `.env`
 for `DATABASE_URL` / `DIRECT_URL`. The shared Redis client in
