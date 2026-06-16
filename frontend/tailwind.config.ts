@@ -26,9 +26,19 @@ const config = {
           DEFAULT: "#1D3461",
           50: "#eef2f9",
           100: "#d6e0f0",
+          200: "#aec6e3",
+          400: "#5b82b8",
+          500: "#2f4d7d",
           600: "#1D3461",
           700: "#162a4d",
+          800: "#101f3a",
           900: "#0f1d36",
+        },
+        // Dark-mode surfaces (used behind the glass card in dark theme).
+        ink: {
+          900: "#0a0f1c",
+          800: "#0f1729",
+          700: "#16203a",
         },
       },
       keyframes: {
