@@ -1,18 +1,12 @@
 import { Router } from "express";
-import Redis from "ioredis";
 import {
   createRandomCode,
   getShortCodeDetails,
-} from "../controllers/shortCode.controller.js";
+} from "../controllers/shortCode.controller";
 import checkCache from "../middleware/caching.middleware";
+import redis from "../services/redis";
 
 const route = Router();
-const redis = new Redis({
-  host: "127.0.0.1",
-  port: 6379,
-});
-
-redis.on("error", (err) => console.error("❌ Redis Error:", err));
 
 /**
  * @route GET /:code
@@ -31,14 +25,11 @@ route.get("/:code", checkCache, async (req, res) => {
       return res.status(404).json({ message: "Not Found" });
     }
 
-    console.log(
-      `🔗 Retrieved URL from DB: ${presentShortCode.longUrl}, redirecting...`,
-    );
+    console.log(`🔗 Retrieved URL from DB: ${presentShortCode.longUrl}`);
 
     await redis.set(shortcode, presentShortCode.longUrl, "EX", 3600);
 
-    // return res.status(200).json({ longURL: presentShortCode.longUrl });
-    return res.redirect(301, presentShortCode.longUrl);
+    return res.redirect(302, presentShortCode.longUrl);
   } catch (error) {
     console.error("❌ Error in GET /:code:", error);
     return res.status(500).json({ message: "Internal Server Error" });

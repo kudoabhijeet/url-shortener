@@ -103,7 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-dump.rdb 
-backend/src/prisma/migrations/*
-
+dump.rdb
+yarn-lock.json
 .DS_Store

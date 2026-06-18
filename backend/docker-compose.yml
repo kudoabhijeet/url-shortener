@@ -1,25 +1,25 @@
-# services:
-#   # api:
-#   #   image: api
-#   #   depends_on:
-#   #     - db
-#   #     - cache
-#   #   ports:
-#   #     - ${PORT}:${PORT}
+# Local dev dependencies only (Postgres + Redis).
+# The backend itself runs via `npm run start:dev`, not in a container.
+# Production uses Supabase (DB) + Upstash (Redis) instead — see .env.example.
 
-#   db:
-#     image: postgres:latest
-#     restart: always
-#     environment:
-#       - POSTGRES_PASSWORD=${DB_PASSWORD}
-#       - POSTGRES_USER=${DB_USER}
-#       - POSTGRES_DB=${DB_NAME}
-#     ports:
-#       - "5432:5432"
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: urlshortener
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
-#   # cache:
-#   #   image: redis:latest
-#   #   environment:
-#   #     - REDIS_PASSWORD=${DB_PASSWORD}
-#   #   ports:
-#   #     - "6379:6379"
+  cache:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
